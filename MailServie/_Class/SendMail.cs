@@ -149,5 +149,81 @@ namespace MailServie._Class
                 return false;
             }
         }
+
+        public void ClearReceiverList()
+        {
+            this.ReceiverList.Clear();
+        }
+
+        public void ClearMailList()
+        {
+            this.MailList.Clear();
+        }
+
+        public async Task<bool> SendMultipleMailGmailAsync()
+        {
+            try
+            {
+                
+                foreach (MailContent item in this.MailList)
+                {
+                    MailMessage message = new MailMessage();
+                    message.BodyEncoding = Encoding.UTF8;
+                    message.HeadersEncoding = Encoding.UTF8;
+                    message.SubjectEncoding = Encoding.UTF8;
+                    message.IsBodyHtml = true;
+                    message.Subject = item.subject;
+                    message.From = new MailAddress(this.Mail);
+                    message.Body = item.body;
+                    foreach (ReceiverModel subItem in this.ReceiverList)
+                    {
+                        message.To.Add(subItem.ReceiverMailAddress);
+                    }
+                    SmtpClient smtp = new SmtpClient("smtp.gmail.com");
+                    smtp.Credentials = new NetworkCredential(this.Mail, this.Password);
+                    smtp.EnableSsl = true;
+                    smtp.Port = 587;
+                    await smtp.SendMailAsync(message);
+                }           
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> SendMultipleMailOutlookAsync()
+        {
+            try
+            {
+
+                foreach (MailContent item in this.MailList)
+                {
+                    MailMessage message = new MailMessage();
+                    message.BodyEncoding = Encoding.UTF8;
+                    message.HeadersEncoding = Encoding.UTF8;
+                    message.SubjectEncoding = Encoding.UTF8;
+                    message.IsBodyHtml = true;
+                    message.Subject = item.subject;
+                    message.From = new MailAddress(this.Mail);
+                    message.Body = item.body;
+                    foreach (ReceiverModel subItem in this.ReceiverList)
+                    {
+                        message.To.Add(subItem.ReceiverMailAddress);
+                    }
+                    SmtpClient smtp = new SmtpClient("smtp-mail.outlook.com");
+                    smtp.Credentials = new NetworkCredential(this.Mail, this.Password);
+                    smtp.EnableSsl = true;
+                    smtp.Port = 587;
+                    await smtp.SendMailAsync(message);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

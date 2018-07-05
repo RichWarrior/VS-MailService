@@ -6,7 +6,11 @@ namespace MailServie._Interface
     {
         Task<bool> SendMailWithGmailAsync();
         Task<bool> SendMailWithOutlookAsync();
+        Task<bool> SendMultipleMailGmailAsync();
+        Task<bool> SendMultipleMailOutlookAsync();
         bool SendMailWithGmail();
         bool SendMailWithOutlook();
+        void ClearReceiverList();
+        void ClearMailList();
     }
 }
