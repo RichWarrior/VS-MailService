@@ -1,18 +1,22 @@
 # VS-MailService
 
-#Kullanımı
+# KullanÄ±mÄ±
+
+
 ```c#
-SendMail mail = new SendMail("mail_adresi","şifre");
+SendMail mail = new SendMail("mail_adresi","ÅŸifre");
 mail.AddReceiver("hedef_adres");
-            mail.AddMail("Mail Konusu","Mail İçeriği");
-            Task<bool> result = Task.Run(() => mail.SendMailWithGmailAsync());
-            if (result.Result)
-            {
-                Console.Write("Gönderildi!");
-            }
+mail.AddMail("Mail Konusu","Mail Ä°Ã§eriÄŸi");
+Task<bool> result = Task.Run(() => mail.SendMailWithGmailAsync());
+if (result.Result)
+{
+Console.Write("GÃ¶nderildi!");
+}
 ```
-#Özellikleri
+# Ã–zellikleri
+
+
 <ul>
-<li>Kullanıcılara Gmail Üzerinden Çoklu veya Tekli Mail Göndermek</li>
-<li>Kullanıcılara Outlook Üzerinden Çoklu veya Tekli Mail Göndermek</li>
+<li>KullanÄ±cÄ±lara Gmail Ãœzerinden Ã‡oklu veya Tekli Mail GÃ¶ndermek</li>
+<li>KullanÄ±cÄ±lara Outlook Ãœzerinden Ã‡oklu veya Tekli Mail GÃ¶ndermek</li>
 </ul>
