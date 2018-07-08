@@ -17,6 +17,7 @@ Console.Write("Gönderildi!");
 
 
 <ul>
-<li>Kullanıcılara Gmail Üzerinden Çoklu veya Tekli Mail Göndermek</li>
-<li>Kullanıcılara Outlook Üzerinden Çoklu veya Tekli Mail Göndermek</li>
+<li>Kullanıcılara Gmail Üzerinden  Tekli Mail Göndermek</li>
+<li>Kullanıcılara Outlook Üzerinden  Tekli Mail Göndermek</li>
+ <li>Kullanıcılara Hostinger Mail Sunucusu Üzerinden  Tekli Mail Göndermek</li>
 </ul>
