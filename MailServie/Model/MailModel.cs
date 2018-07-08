@@ -13,8 +13,8 @@ namespace MailServie.Model
             public string subject { get; set; }
             public string body { get; set; }
         }
-        public List<ReceiverModel> ReceiverList { get; set; }
-        public List<MailContent> MailList { get; set; }
+        public ReceiverModel ReceiverList { get; set; }
+        public MailContent MailList { get; set; }
     }
     
 }

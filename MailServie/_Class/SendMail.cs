@@ -14,16 +14,14 @@ namespace MailServie._Class
         public SendMail(string mail,string password){
             this.Mail = mail;
             this.Password = password;
-            this.MailList = new List<MailContent>();
-            this.ReceiverList = new List<ReceiverModel>();
         }
         public void AddReceiver(string mail)
         {
-            this.ReceiverList.Add(new ReceiverModel { ReceiverMailAddress = mail });
+            this.ReceiverList = new ReceiverModel { ReceiverMailAddress = mail };
         }
         public void AddMail(string subject,string body)
         {
-            this.MailList.Add(new MailContent { subject=subject,body = body });
+            this.MailList = new MailContent { body = body, subject = subject };
         }
         public bool SendMailWithGmail()
         {
@@ -34,16 +32,10 @@ namespace MailServie._Class
                 message.HeadersEncoding = Encoding.UTF8;
                 message.SubjectEncoding = Encoding.UTF8;
                 message.IsBodyHtml = true;
-                foreach (MailContent item in this.MailList)
-                {
-                    message.Subject = item.subject;
-                    message.From = new MailAddress(this.Mail);
-                    message.Body = item.body;
-                    foreach (ReceiverModel subItem in this.ReceiverList)
-                    {
-                        message.To.Add(subItem.ReceiverMailAddress);                      
-                    }
-                }
+                message.Subject = this.MailList.subject;
+                message.From = new MailAddress(this.Mail);
+                message.Body = this.MailList.body;
+                message.To.Add(this.ReceiverList.ReceiverMailAddress);           
                 SmtpClient smtp = new SmtpClient("smtp.gmail.com");
                 smtp.Credentials = new NetworkCredential(this.Mail, this.Password);
                 smtp.EnableSsl = true;
@@ -51,7 +43,7 @@ namespace MailServie._Class
                 smtp.Send(message);
                 return true;
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }
@@ -65,16 +57,10 @@ namespace MailServie._Class
                 message.HeadersEncoding = Encoding.UTF8;
                 message.SubjectEncoding = Encoding.UTF8;
                 message.IsBodyHtml = true;
-                foreach (MailContent item in this.MailList)
-                {
-                    message.Subject = item.subject;
-                    message.From = new MailAddress(this.Mail);
-                    message.Body = item.body;
-                    foreach (ReceiverModel subItem in this.ReceiverList)
-                    {
-                        message.To.Add(subItem.ReceiverMailAddress);
-                    }
-                }
+                message.Subject = this.MailList.subject;
+                message.From = new MailAddress(this.Mail);
+                message.Body = this.MailList.body;
+                message.To.Add(this.ReceiverList.ReceiverMailAddress);
                 SmtpClient smtp = new SmtpClient("smtp.gmail.com");
                 smtp.Credentials = new NetworkCredential(this.Mail, this.Password);
                 smtp.EnableSsl = true;
@@ -82,7 +68,7 @@ namespace MailServie._Class
                 await smtp.SendMailAsync(message);
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -96,16 +82,10 @@ namespace MailServie._Class
                 message.HeadersEncoding = Encoding.UTF8;
                 message.SubjectEncoding = Encoding.UTF8;
                 message.IsBodyHtml = true;
-                foreach (MailContent item in this.MailList)
-                {
-                    message.Subject = item.subject;
-                    message.From = new MailAddress(this.Mail);
-                    message.Body = item.body;
-                    foreach (ReceiverModel subItem in this.ReceiverList)
-                    {
-                        message.To.Add(subItem.ReceiverMailAddress);
-                    }
-                }
+                message.Subject = this.MailList.subject;
+                message.From = new MailAddress(this.Mail);
+                message.Body = this.MailList.body;
+                message.To.Add(this.ReceiverList.ReceiverMailAddress);
                 SmtpClient smtp = new SmtpClient("smtp-mail.outlook.com");
                 smtp.Credentials = new NetworkCredential(this.Mail, this.Password);
                 smtp.EnableSsl = true;
@@ -113,7 +93,7 @@ namespace MailServie._Class
                 smtp.Send(message);
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -127,16 +107,10 @@ namespace MailServie._Class
                 message.HeadersEncoding = Encoding.UTF8;
                 message.SubjectEncoding = Encoding.UTF8;
                 message.IsBodyHtml = true;
-                foreach (MailContent item in this.MailList)
-                {
-                    message.Subject = item.subject;
-                    message.From = new MailAddress(this.Mail);
-                    message.Body = item.body;
-                    foreach (ReceiverModel subItem in this.ReceiverList)
-                    {
-                        message.To.Add(subItem.ReceiverMailAddress);
-                    }
-                }
+                message.Subject = this.MailList.subject;
+                message.From = new MailAddress(this.Mail);
+                message.Body = this.MailList.body;
+                message.To.Add(this.ReceiverList.ReceiverMailAddress);
                 SmtpClient smtp = new SmtpClient("smtp-mail.outlook.com");
                 smtp.Credentials = new NetworkCredential(this.Mail, this.Password);
                 smtp.EnableSsl = true;
@@ -144,83 +118,38 @@ namespace MailServie._Class
                 await smtp.SendMailAsync(message);
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
         }
 
-        public void ClearReceiverList()
-        {
-            this.ReceiverList.Clear();
-        }
 
-        public void ClearMailList()
-        {
-            this.MailList.Clear();
-        }
+     
 
-        public async Task<bool> SendMultipleMailGmailAsync()
+        
+
+        public async Task<bool> SendMailWithHostingerAsync()
         {
             try
             {
-                
-                foreach (MailContent item in this.MailList)
-                {
-                    MailMessage message = new MailMessage();
-                    message.BodyEncoding = Encoding.UTF8;
-                    message.HeadersEncoding = Encoding.UTF8;
-                    message.SubjectEncoding = Encoding.UTF8;
-                    message.IsBodyHtml = true;
-                    message.Subject = item.subject;
-                    message.From = new MailAddress(this.Mail);
-                    message.Body = item.body;
-                    foreach (ReceiverModel subItem in this.ReceiverList)
-                    {
-                        message.To.Add(subItem.ReceiverMailAddress);
-                    }
-                    SmtpClient smtp = new SmtpClient("smtp.gmail.com");
-                    smtp.Credentials = new NetworkCredential(this.Mail, this.Password);
-                    smtp.EnableSsl = true;
-                    smtp.Port = 587;
-                    await smtp.SendMailAsync(message);
-                }           
+                MailMessage message = new MailMessage();
+                message.BodyEncoding = Encoding.UTF8;
+                message.HeadersEncoding = Encoding.UTF8;
+                message.SubjectEncoding = Encoding.UTF8;
+                message.IsBodyHtml = true;
+                message.Subject = this.MailList.subject;
+                message.From = new MailAddress(this.Mail);
+                message.Body = this.MailList.body;
+                message.To.Add(this.ReceiverList.ReceiverMailAddress);
+                SmtpClient smtp = new SmtpClient("mx1.hostinger.com");
+                smtp.Credentials = new NetworkCredential(this.Mail, this.Password);
+                smtp.EnableSsl = true;
+                smtp.Port = 587;
+                await smtp.SendMailAsync(message);
                 return true;
             }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
-
-        public async Task<bool> SendMultipleMailOutlookAsync()
-        {
-            try
-            {
-
-                foreach (MailContent item in this.MailList)
-                {
-                    MailMessage message = new MailMessage();
-                    message.BodyEncoding = Encoding.UTF8;
-                    message.HeadersEncoding = Encoding.UTF8;
-                    message.SubjectEncoding = Encoding.UTF8;
-                    message.IsBodyHtml = true;
-                    message.Subject = item.subject;
-                    message.From = new MailAddress(this.Mail);
-                    message.Body = item.body;
-                    foreach (ReceiverModel subItem in this.ReceiverList)
-                    {
-                        message.To.Add(subItem.ReceiverMailAddress);
-                    }
-                    SmtpClient smtp = new SmtpClient("smtp-mail.outlook.com");
-                    smtp.Credentials = new NetworkCredential(this.Mail, this.Password);
-                    smtp.EnableSsl = true;
-                    smtp.Port = 587;
-                    await smtp.SendMailAsync(message);
-                }
-                return true;
-            }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
