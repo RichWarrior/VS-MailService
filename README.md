@@ -2,7 +2,7 @@
 
 # Kullanımı
 
-
+# Async
 ```c#
 SendMail mail = new SendMail("mail_adresi","şifre");
 mail.AddReceiver("hedef_adres");
@@ -13,6 +13,18 @@ if (result.Result)
 Console.Write("Gönderildi!");
 }
 ```
+
+# Sync
+```c#
+SendMail mail = new SendMail("mail_adresi","şifre");
+mail.AddReceiver("hedef_adres");
+mail.AddMail("Mail Konusu","Mail İçeriği");
+if (mail.SendMailWithGmailAsync())
+{
+Console.Write("Gönderildi!");
+}
+```
+
 # Özellikleri
 
 
